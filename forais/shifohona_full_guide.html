@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shifohona Tizimi — To'liq Qo'llanma</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--card:#1c2128;--border:#30363d;--blue:#58a6ff;--green:#3fb950;--amber:#d29922;--red:#f85149;--purple:#bc8cff;--teal:#39d353;--orange:#e3b341;--text:#e6edf3;--muted:#7d8590;--code:#1e2432;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;font-size:15px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:4px;overflow-x:auto;}
+.nav-btn{padding:12px 16px;color:var(--muted);font-size:13px;cursor:pointer;border:none;background:none;white-space:nowrap;border-bottom:2px solid transparent;transition:.2s;}
+.nav-btn:hover{color:var(--text);}
+.nav-btn.on{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* HERO */
+.hero{padding:64px 40px 56px;text-align:center;border-bottom:1px solid var(--border);background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(88,166,255,.08),transparent);}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.25);color:var(--blue);padding:5px 16px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-bottom:24px;}
+.hero h1{font-size:48px;font-weight:800;line-height:1.15;margin-bottom:20px;background:linear-gradient(135deg,#fff 40%,#58a6ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:var(--muted);max-width:680px;margin:0 auto 32px;}
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.pill{background:var(--surface);border:1px solid var(--border);padding:5px 14px;border-radius:6px;font-size:12px;color:var(--muted);}
+.pill b{color:var(--text);}
+
+/* SECTIONS */
+.sec{max-width:980px;margin:0 auto;padding:56px 32px;}
+.sec-h{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-size:28px;font-weight:700;margin-bottom:8px;}
+.sec-desc{color:var(--muted);font-size:15px;margin-bottom:36px;max-width:700px;}
+
+/* INTRO TEXT */
+.intro-block{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px 40px;margin-bottom:28px;}
+.intro-block h3{font-size:19px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.intro-block p{color:#9ca3af;margin-bottom:12px;font-size:15px;}
+.intro-block p:last-child{margin:0;}
+.intro-block strong{color:var(--text);}
+.callout{background:rgba(88,166,255,.07);border-left:3px solid var(--blue);padding:16px 20px;border-radius:0 8px 8px 0;margin:16px 0;}
+.callout.green{background:rgba(63,185,80,.07);border-left-color:var(--green);}
+.callout.amber{background:rgba(210,153,34,.07);border-left-color:var(--amber);}
+.callout p{margin:0;color:var(--text);font-size:14px;}
+.callout strong{color:var(--blue);}
+.callout.green strong{color:var(--green);}
+.callout.amber strong{color:var(--amber);}
+
+/* FLOW */
+.flow-wrap{overflow-x:auto;padding-bottom:8px;}
+.flow{display:flex;align-items:stretch;gap:0;min-width:800px;}
+.flow-node{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center;position:relative;}
+.flow-node+.flow-node{margin-left:40px;}
+.flow-node+.flow-node::before{content:'→';position:absolute;left:-28px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:20px;}
+.flow-node .ico{font-size:30px;margin-bottom:10px;}
+.flow-node .who{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.flow-node .name{font-size:14px;font-weight:700;margin-bottom:10px;}
+.flow-node ul{text-align:left;list-style:none;font-size:12px;color:var(--muted);}
+.flow-node ul li{padding:2px 0 2px 14px;position:relative;}
+.flow-node ul li::before{content:'·';position:absolute;left:0;color:var(--blue);}
+.fn-admin{border-color:rgba(88,166,255,.35);}
+.fn-doc{border-color:rgba(63,185,80,.35);}
+.fn-pay{border-color:rgba(210,153,34,.35);}
+
+/* MODELS GRID */
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px;}
+.model-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.model-card .mh{padding:13px 18px;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.model-card .mf{padding:12px 18px;}
+.field{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(48,54,61,.5);font-size:12.5px;}
+.field:last-child{border:none;}
+.field .fn{font-family:monospace;color:var(--text);}
+.badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;}
+.b-str{background:rgba(63,185,80,.12);color:#56d364;}
+.b-ref{background:rgba(88,166,255,.12);color:#79c0ff;}
+.b-arr{background:rgba(210,153,34,.12);color:#e3b341;}
+.b-bool{background:rgba(188,140,255,.12);color:#d2a8ff;}
+.b-num{background:rgba(248,81,73,.12);color:#ff7b72;}
+.model-card .md{padding:10px 18px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);}
+
+/* FILE CARD */
+.file-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;}
+.file-header{display:flex;align-items:center;gap:12px;padding:13px 20px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);}
+.file-path{font-family:monospace;font-size:13px;color:var(--blue);flex:1;}
+.tag{font-size:10px;padding:3px 10px;border-radius:4px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.t-new{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.25);}
+.t-upd{background:rgba(210,153,34,.15);color:#d29922;border:1px solid rgba(210,153,34,.25);}
+.t-ex{background:rgba(125,133,144,.1);color:var(--muted);border:1px solid var(--border);}
+.why{padding:14px 20px;background:rgba(88,166,255,.04);border-bottom:1px solid var(--border);font-size:13.5px;color:#9ca3af;}
+.why strong{color:var(--blue);}
+.why .r{color:var(--green);}
+pre{background:var(--code);padding:22px 24px;overflow-x:auto;font-size:12.5px;font-family:'Cascadia Code','Fira Code',monospace;line-height:1.8;tab-size:2;}
+.k{color:#ff7b72;}  /* keyword */
+.s{color:#a5d6ff;}  /* string */
+.c{color:#6e7681;}  /* comment */
+.f{color:#d2a8ff;}  /* function */
+.v{color:#ffa657;}  /* variable/number */
+.t{color:#7ee787;}  /* type/path */
+
+/* API TABLE */
+.api-table{width:100%;border-collapse:collapse;font-size:13px;}
+.api-table th{background:var(--code);padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.api-table td{padding:10px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.api-table tr:last-child td{border:none;}
+.meth{font-family:monospace;font-size:11px;font-weight:800;padding:3px 9px;border-radius:4px;}
+.mp{background:rgba(63,185,80,.15);color:#3fb950;}
+.mg{background:rgba(88,166,255,.15);color:#58a6ff;}
+.mpat{background:rgba(188,140,255,.15);color:#bc8cff;}
+.md2{background:rgba(248,81,73,.15);color:#f85149;}
+code{font-family:monospace;background:rgba(110,118,129,.2);padding:2px 6px;border-radius:4px;font-size:12px;color:var(--text);}
+
+/* STEP NUMBERS */
+.steps{display:flex;flex-direction:column;gap:16px;}
+.step{display:flex;gap:20px;align-items:flex-start;}
+.step-num{width:36px;height:36px;border-radius:50%;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);color:var(--blue);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-body h4{font-size:15px;font-weight:700;margin-bottom:4px;}
+.step-body p{color:var(--muted);font-size:13.5px;}
+
+/* DIVIDER */
+hr{border:none;border-top:1px solid var(--border);margin:0;}
+
+/* PAGE SECTIONS */
+.page{display:none;}
+.page.on{display:block;}
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-btn on" onclick="go('intro',this)">📖 Loyiha haqida</button>
+  <button class="nav-btn" onclick="go('flow',this)">🔄 Tizim oqimi</button>
+  <button class="nav-btn" onclick="go('models',this)">🗄️ Modellar</button>
+  <button class="nav-btn" onclick="go('env',this)">.env & index.js</button>
+  <button class="nav-btn" onclick="go('auth',this)">🔐 Auth</button>
+  <button class="nav-btn" onclick="go('patient',this)">🚶 Bemor</button>
+  <button class="nav-btn" onclick="go('doctor',this)">👨‍⚕️ Shifokor</button>
+  <button class="nav-btn" onclick="go('appoint',this)">📅 Qabul</button>
+  <button class="nav-btn" onclick="go('presc',this)">💊 Retsept</button>
+  <button class="nav-btn" onclick="go('middleware',this)">🛡️ Middleware</button>
+  <button class="nav-btn" onclick="go('routes',this)">🗺️ Routes</button>
+  <button class="nav-btn" onclick="go('api',this)">📋 API jadval</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">🏥 To'liq backend qo'llanma</div>
+  <h1>Shifohona Boshqaruv Tizimi</h1>
+  <p class="hero-sub">Bemordan shifokorga, shifokordan retseptga, retseptdan to'lovga — barcha jarayon bitta tizimda</p>
+  <div class="pills">
+    <div class="pill"><b>Node.js</b> · Express</div>
+    <div class="pill"><b>MongoDB</b> · Mongoose</div>
+    <div class="pill"><b>JWT</b> · access + refresh</div>
+    <div class="pill"><b>bcrypt</b> · parol xavfsizligi</div>
+    <div class="pill"><b>5 Model</b> · 5 Controller</div>
+  </div>
+</div>
+
+<!-- ══════════════ INTRO ══════════════ -->
+<div id="page-intro" class="page on">
+<div class="sec">
+  <div class="sec-h">Loyiha haqida</div>
+  <div class="sec-title">Bu tizim nima va nima uchun kerak?</div>
+
+  <div class="intro-block">
+    <h3>🎯 Maqsad</h3>
+    <p>Bu loyiha — <strong>real klinika yoki shifohonani raqamlashtiradigan backend tizim</strong>. Hozirgi kunda ko'plab klinikalarda hamma narsa qog'ozda: bemor daftari, shifokor jadvali, retsept varaqalari, to'lov cheki. Bu tizim o'sha jarayonlarning hammasini kompyuterga o'tkazadi va avtomatlashtiradi.</p>
+    <p>Oddiy qilib aytganda: <strong>bemor klinikaga kirganidan chiqib ketguniga qadar bo'lgan hamma narsa — bitta tizimda, real vaqtda, hech qanday qog'ozsiz.</strong></p>
+    <div class="callout">
+      <p><strong>Menga qiziq tomoni:</strong> Bu tizim aslida uchta alohida "dunyo"ni birlashtiradi — adminstratsiya, shifokor va bemor. Har birining o'z ko'rinishi va imkoniyati bor, lekin ular bitta bazadan ma'lumot oladi. Bu arxitektura — ko'pchilik real tibbiy tizimlarning asosiy g'oyasi.</p>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    <h3>👥 Tizimda kimlar bor?</h3>
+    <p><strong>Adminstratsiya (reception):</strong> Klinikaning "eshigi". Ular bemorlarni ro'yxatga oladi, shifokorga yuboradi, shifokordan kelgan retseptni qabul qiladi va to'lovni oladi. Adminstratsiyada ikkita asosiy ko'rinish bor:</p>
+    <div class="callout green">
+      <p><strong>1-ko'rinish:</strong> Yangi kelgan bemorlar — kim keldi, nima kasali bor, qaysi shifokorga yuborish kerak. Bu yerda admin shifokorlarni ko'rib, bemor kasalligiga mos bo'sh shifokorni tanlaydi va yozadi.</p>
+    </div>
+    <div class="callout amber">
+      <p><strong>2-ko'rinish:</strong> Shifokordan javob kelgan bemorlar — shifokor ko'rib bo'ldi, tashxis qo'ydi, dorilarni belgiladi, narxini yozdi va adminstratsiyaga yubordi. Endi bemor to'lov qilishi kerak.</p>
+    </div>
+    <p style="margin-top:14px;"><strong>Shifokor (doctor):</strong> Klinikaning mutaxassisi. U o'ziga yuborilgan bemorlar ro'yxatini ko'radi. Bemor bilan gaplashib, tekshirib, tashxis qo'yadi va dorilarni belgilaydi. Hammasi tugagach, bu ma'lumotlarni adminstratsiyaga yuboradi — bemor to'lov qilganidan keyin retseptni oladi.</p>
+    <p><strong>Bemor:</strong> Klinikaga kelib, adminstratsiyaga ism-familiyasi, telefoni, kasalligini aytadi. Adminstratsiya tomonidan tegishli shifokorga yo'naltiriladi. Shifokordan konsultatsiya olib, retseptni to'lov orqali qo'lga kiritadi.</p>
+  </div>
+
+  <div class="intro-block">
+    <h3>🏗️ Nima uchun bu arxitektura?</h3>
+    <p>Kodni yozishda men uchta qoidaga amal qildim:</p>
+    <p><strong>Model = faqat ma'lumot qolip.</strong> model.js faylida faqat Mongoose schema bo'ladi. Hech qanday bcrypt, hech qanday jwt, hech qanday mantiq. Faqat "bu ma'lumot qanday ko'rinishda saqlansin" degan javob.</p>
+    <p><strong>Controller = barcha mantiq.</strong> bcrypt bu yerda hash qiladi, jwt bu yerda token yaratadi, ma'lumot tekshirish ham shu yerda. Qo'shimcha fayl (utils, helpers) kerak emas — hammasini to'g'ridan controller da qilish ancha tushunarliroq.</p>
+    <p><strong>Middleware = darvoza.</strong> Himoyalangan route ga so'rov kelganda avval middleware tekshiradi: "Bu odam login qilganmi? Uning roli to'g'rimi?" Shundan keyingina controller ishlaydi.</p>
+    <div class="callout">
+      <p><strong>Mening fikrim:</strong> Ko'p dasturchilar "utils" va "helpers" papkalari yaratib, kodni tarqoq qilib yuborishadi. Men bu loyihada hamma narsani controller da qoldirdim — bu kodni o'qiyotgan odam uchun ancha qulay, chunki bitta faylda hamma mantiqni ko'radi.</p>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    <h3>📁 Fayl strukturasi</h3>
+    <pre style="background:var(--code);border-radius:8px;padding:20px;">backend/
+├── .env                          ← maxfiy kalitlar (gitga yuklanmaydi)
+├── index.js                      ← dastur kirish nuqtasi
+├── package.json
+└── src/
+    ├── config/
+    │   └── db.js                 ← MongoDB ulanish
+    ├── models/
+    │   ├── user.model.js         ← admin/shifokor/reception akkauntlari
+    │   ├── patient.model.js      ← bemor ma'lumotlari
+    │   ├── doctor.model.js       ← shifokor profili va jadval
+    │   ├── appointment.model.js  ← qabul (bemor + shifokor + vaqt)
+    │   └── prescription.model.js ← retsept (shifokor → admin)
+    ├── controllers/
+    │   ├── auth.controller.js    ← bcrypt + JWT shu yerda
+    │   ├── patient.controller.js
+    │   ├── doctor.controller.js
+    │   ├── appointment.controller.js
+    │   └── prescription.controller.js
+    ├── middlewares/
+    │   └── auth.middleware.js    ← token tekshirish + rol tekshirish
+    └── routes/
+        ├── index.js              ← barcha routelarni birlashtiradi
+        ├── auth.routes.js
+        ├── patient.routes.js
+        ├── doctor.routes.js
+        ├── appointment.routes.js
+        └── prescription.routes.js</pre>
+  </div>
+
+  <div class="intro-block">
+    <h3>⚡ Ishga tushirish</h3>
+    <pre style="background:var(--code);border-radius:8px;padding:20px;"><span class="c"># 1. Paketlarni o'rnatish</span>
+npm install
+
+<span class="c"># 2. .env faylni yaratish (quyidagi bo'limda ko'rsatilgan)</span>
+
+<span class="c"># 3. Ishga tushirish</span>
+npm run dev</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ FLOW ══════════════ -->
+<div id="page-flow" class="page">
+<div class="sec">
+  <div class="sec-h">Tizim oqimi</div>
+  <div class="sec-title">Bemor kelganidan yakunigacha</div>
+  <div class="sec-desc">Har bir qadam kim tomonidan va qanday bajarilishini ko'rasiz</div>
+
+  <div class="flow-wrap">
+    <div class="flow">
+      <div class="flow-node fn-admin">
+        <div class="ico">🚪</div>
+        <div class="who">1-qadam</div>
+        <div class="name">Bemor keladi</div>
+        <ul>
+          <li>Ism familiya</li>
+          <li>Telefon raqam</li>
+          <li>Tug'ilgan sana</li>
+          <li>Jins</li>
+          <li>Kasalik / shikoyat</li>
+          <li>Manzil</li>
+        </ul>
+      </div>
+      <div class="flow-node fn-admin">
+        <div class="ico">📋</div>
+        <div class="who">2-qadam · Admin</div>
+        <div class="name">Ro'yxatga olish</div>
+        <ul>
+          <li>Patient yaratiladi</li>
+          <li>Kasalik o'rganiladi</li>
+          <li>Ixtisoslik belgilanadi</li>
+          <li>Bo'sh shifokorlar ko'riladi</li>
+          <li>Vaqt tanlanadi</li>
+          <li>Qabul yoziladi</li>
+        </ul>
+      </div>
+      <div class="flow-node fn-doc">
+        <div class="ico">👨‍⚕️</div>
+        <div class="who">3-qadam · Shifokor</div>
+        <div class="name">Ko'rik va tashxis</div>
+        <ul>
+          <li>Bemor ro'yxati ko'riladi</li>
+          <li>Bemor bilan gaplashiladi</li>
+          <li>Tekshiruv o'tkaziladi</li>
+          <li>Tashxis qo'yiladi</li>
+          <li>Dorilar belgilanadi</li>
+          <li>Tahlillar buyuriladi</li>
+        </ul>
+      </div>
+      <div class="flow-node fn-doc">
+        <div class="ico">📤</div>
+        <div class="who">4-qadam · Shifokor</div>
+        <div class="name">Adminga yuborish</div>
+        <ul>
+          <li>Tashxis yoziladi</li>
+          <li>Dorilar ro'yxati</li>
+          <li>Narx belgilanadi</li>
+          <li>Retsept yaratiladi</li>
+          <li>Admin ko'radi</li>
+        </ul>
+      </div>
+      <div class="flow-node fn-pay">
+        <div class="ico">💳</div>
+        <div class="who">5-qadam · Admin</div>
+        <div class="name">To'lov va retsept</div>
+        <ul>
+          <li>Retsept ko'rinadi</li>
+          <li>Bemor to'lov qiladi</li>
+          <li>Status: to'landi</li>
+          <li>Retsept beriladi</li>
+          <li>Jarayon tugadi ✓</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="intro-block" style="margin-top:32px;">
+    <h3>🔀 Admin ko'radi: ikkita alohida navbat</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+      <div style="background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.2);border-radius:8px;padding:20px;">
+        <div style="color:var(--blue);font-weight:700;margin-bottom:10px;">📋 1-navbat: Kutayotgan bemorlar</div>
+        <div style="font-size:13px;color:var(--muted);">
+          Yangi kelgan, hali shifokorga yuborilmagan yoki kutayotgan bemorlar.<br><br>
+          <code>GET /api/patients?status=kutmoqda</code><br><br>
+          Bu yerdan admin bemorni ko'rib, kasalligiga qarab ixtisoslik tanlaydi va bo'sh shifokorga yozadi.
+        </div>
+      </div>
+      <div style="background:rgba(210,153,34,.06);border:1px solid rgba(210,153,34,.2);border-radius:8px;padding:20px;">
+        <div style="color:var(--amber);font-weight:700;margin-bottom:10px;">💊 2-navbat: To'lov kutayotganlar</div>
+        <div style="font-size:13px;color:var(--muted);">
+          Shifokor ko'rib bo'ldi va retseptni yubordi. Bemor to'lov qilishi kutilmoqda.<br><br>
+          <code>GET /api/prescriptions/pending</code><br><br>
+          Bu yerdan admin to'lovni qabul qilib "to'landi" deb belgilaydi va retseptni beradi.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-block" style="margin-top:24px;">
+    <h3>🔐 JWT token qanday ishlaydi?</h3>
+    <div class="steps" style="margin-top:16px;">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Login qilish</h4>
+          <p>Admin email + parol yuboradi. bcrypt parolni tekshiradi. To'g'ri bo'lsa — ikkita token yaratiladi.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>accessToken — 15 daqiqa</h4>
+          <p>Har bir so'rovda <code>Authorization: Bearer TOKEN</code> header da yuboriladi. 15 daqiqadan keyin eskiradi.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>refreshToken — 7 kun, DB da saqlanadi</h4>
+          <p>Access token eskirganda — frontend bu tokenni <code>/api/auth/refresh</code> ga yuboradi va yangi access token oladi.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Logout</h4>
+          <p>DB dagi refreshToken <code>null</code> ga o'zgaradi. Endi hech kim bu token bilan yangi access ola olmaydi.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ MODELS ══════════════ -->
+<div id="page-models" class="page">
+<div class="sec">
+  <div class="sec-h">Modellar</div>
+  <div class="sec-title">5 ta model — ma'lumot qanday saqlanadi</div>
+  <div class="sec-desc">Har bir model faqat schema. Hech qanday mantiq, hech qanday bcrypt, hech qanday JWT.</div>
+
+  <div class="model-grid">
+    <div class="model-card">
+      <div class="mh" style="color:#58a6ff;">👤 user.model.js</div>
+      <div class="mf">
+        <div class="field"><span class="fn">name</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">email</span><span class="badge b-str">String unique</span></div>
+        <div class="field"><span class="fn">password</span><span class="badge b-str">String (bcrypt)</span></div>
+        <div class="field"><span class="fn">role</span><span class="badge b-str">admin/doctor/reception</span></div>
+        <div class="field"><span class="fn">refreshToken</span><span class="badge b-str">String | null</span></div>
+      </div>
+      <div class="md">Admin, shifokor va qabulxona akkauntlari. refreshToken login da DB ga saqlanadi.</div>
+    </div>
+    <div class="model-card">
+      <div class="mh" style="color:#bc8cff;">🚶 patient.model.js</div>
+      <div class="mf">
+        <div class="field"><span class="fn">fullName</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">phone</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">birthDate</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">gender</span><span class="badge b-str">erkak/ayol</span></div>
+        <div class="field"><span class="fn">illness</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">specialty</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">status</span><span class="badge b-str">kutmoqda/yozilgan</span></div>
+      </div>
+      <div class="md">Klinikaga kelgan bemor. Admin yaratadi. specialty — qaysi ixtisoslikka yuboriladi.</div>
+    </div>
+    <div class="model-card">
+      <div class="mh" style="color:#3fb950;">👨‍⚕️ doctor.model.js</div>
+      <div class="mf">
+        <div class="field"><span class="fn">fullName</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">specialty</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">room</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">userId</span><span class="badge b-ref">→ User</span></div>
+        <div class="field"><span class="fn">schedule</span><span class="badge b-arr">[{date,time,isBusy}]</span></div>
+      </div>
+      <div class="md">Shifokor profili. schedule — vaqt jadvali. Qabul yozilganda isBusy: true bo'ladi.</div>
+    </div>
+    <div class="model-card">
+      <div class="mh" style="color:#d29922;">📅 appointment.model.js</div>
+      <div class="mf">
+        <div class="field"><span class="fn">patient</span><span class="badge b-ref">→ Patient</span></div>
+        <div class="field"><span class="fn">doctor</span><span class="badge b-ref">→ Doctor</span></div>
+        <div class="field"><span class="fn">date</span><span class="badge b-str">2025-01-15</span></div>
+        <div class="field"><span class="fn">time</span><span class="badge b-str">09:00</span></div>
+        <div class="field"><span class="fn">status</span><span class="badge b-str">kutmoqda/bajarildi</span></div>
+      </div>
+      <div class="md">Admin yaratadi → shifokor vaqti band bo'ladi. Admin ko'radi: 1-navbat.</div>
+    </div>
+    <div class="model-card">
+      <div class="mh" style="color:#39d353;">💊 prescription.model.js</div>
+      <div class="mf">
+        <div class="field"><span class="fn">appointment</span><span class="badge b-ref">→ Appointment</span></div>
+        <div class="field"><span class="fn">patient</span><span class="badge b-ref">→ Patient</span></div>
+        <div class="field"><span class="fn">doctor</span><span class="badge b-ref">→ Doctor</span></div>
+        <div class="field"><span class="fn">diagnosis</span><span class="badge b-str">String</span></div>
+        <div class="field"><span class="fn">medicines</span><span class="badge b-arr">[{name,dosage,days}]</span></div>
+        <div class="field"><span class="fn">totalCost</span><span class="badge b-num">Number</span></div>
+        <div class="field"><span class="fn">status</span><span class="badge b-str">to'lov_kutmoqda/to'landi</span></div>
+      </div>
+      <div class="md">Shifokor yaratadi → Admin ko'radi (2-navbat) → Bemor to'laydi → to'landi.</div>
+    </div>
+  </div>
+
+  <br>
+  <div class="file-card" style="margin-top:8px;">
+    <div class="file-header"><span class="file-path">📄 src/models/user.model.js</span><span class="tag t-ex">mavjud · yangilash</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Barcha foydalanuvchilar (admin, shifokor, qabulxona) shu modelda. <span class="r">refreshToken</span> maydoni muhim — login da saqlanadi, logout da null bo'ladi.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> userSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  name:         { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  email:        { type: <span class="t">String</span>, required: <span class="k">true</span>, unique: <span class="k">true</span> },
+  password:     { type: <span class="t">String</span>, required: <span class="k">true</span> },    <span class="c">// bcrypt controller da qiladi</span>
+  role:         { type: <span class="t">String</span>, enum: [<span class="s">'admin'</span>, <span class="s">'doctor'</span>, <span class="s">'reception'</span>], default: <span class="s">'reception'</span> },
+  refreshToken: { type: <span class="t">String</span>, default: <span class="k">null</span> },      <span class="c">// login da saqlanadi</span>
+}, { timestamps: <span class="k">true</span> });
+
+module.exports = mongoose.<span class="f">model</span>(<span class="s">'User'</span>, userSchema);</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/models/patient.model.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Klinikaga kelgan har bir bemor uchun bitta yozuv. <span class="r">specialty</span> — kasaligiga qarab admin tomonidan belgilanadi. <span class="r">status</span> — qaysi navbatda ekani ko'rsatadi.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> patientSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  fullName:  { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  phone:     { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  birthDate: { type: <span class="t">String</span> },                        <span class="c">// "1990-05-20"</span>
+  gender:    { type: <span class="t">String</span>, enum: [<span class="s">'erkak'</span>, <span class="s">'ayol'</span>] },
+  illness:   { type: <span class="t">String</span>, required: <span class="k">true</span> },          <span class="c">// "bosh og'riq, ko'ngil aynish"</span>
+  specialty: { type: <span class="t">String</span>, required: <span class="k">true</span> },          <span class="c">// "kardiolog", "nevrolog"...</span>
+  status: {
+    type: <span class="t">String</span>,
+    enum: [<span class="s">'kutmoqda'</span>, <span class="s">'yozilgan'</span>],
+    default: <span class="s">'kutmoqda'</span>                                   <span class="c">// shifokorga yozilganda "yozilgan"</span>
+  },
+}, { timestamps: <span class="k">true</span> });
+
+module.exports = mongoose.<span class="f">model</span>(<span class="s">'Patient'</span>, patientSchema);</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/models/doctor.model.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> <span class="r">schedule</span> massivi — shifokorning vaqt jadvali. Har bir slot: sana + vaqt + band yoki yo'q. <span class="r">userId</span> — shifokor ham login qiladi, shu user akkauntiga bog'liq.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> doctorSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  fullName:  { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  specialty: { type: <span class="t">String</span>, required: <span class="k">true</span> },    <span class="c">// "kardiolog", "terapevt"...</span>
+  room:      { type: <span class="t">String</span>, required: <span class="k">true</span> },    <span class="c">// "Xona 205"</span>
+  phone:     { type: <span class="t">String</span> },
+  userId:    { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'User'</span> },  <span class="c">// login akkaunt</span>
+  schedule: [{
+    date:   { type: <span class="t">String</span> },                  <span class="c">// "2025-06-15"</span>
+    time:   { type: <span class="t">String</span> },                  <span class="c">// "09:00"</span>
+    isBusy: { type: <span class="t">Boolean</span>, default: <span class="k">false</span> },  <span class="c">// qabul yozilganda true bo'ladi</span>
+  }],
+}, { timestamps: <span class="k">true</span> });
+
+module.exports = mongoose.<span class="f">model</span>(<span class="s">'Doctor'</span>, doctorSchema);</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/models/appointment.model.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Admin bemor + shifokor + vaqtni birlashtirganda shu model yaratiladi. Ayni vaqtda shifokorning o'sha time sloti <code>isBusy: true</code> bo'ladi. Admin 1-navbatda ko'radi.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> appointmentSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  patient: { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'Patient'</span>, required: <span class="k">true</span> },
+  doctor:  { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'Doctor'</span>,  required: <span class="k">true</span> },
+  date:    { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  time:    { type: <span class="t">String</span>, required: <span class="k">true</span> },
+  status:  { type: <span class="t">String</span>, enum: [<span class="s">'kutmoqda'</span>, <span class="s">'qabulda'</span>, <span class="s">'bajarildi'</span>], default: <span class="s">'kutmoqda'</span> },
+}, { timestamps: <span class="k">true</span> });
+
+module.exports = mongoose.<span class="f">model</span>(<span class="s">'Appointment'</span>, appointmentSchema);</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/models/prescription.model.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Shifokor tekshiruvni tugatgach bu model yaratadi va adminstratsiyaga yuboradi. <span class="r">medicines</span> — dorilar ro'yxati. <span class="r">totalCost</span> — to'lov summasi. Admin 2-navbatda ko'radi.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> prescriptionSchema = <span class="k">new</span> mongoose.<span class="f">Schema</span>({
+  appointment: { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'Appointment'</span> },
+  patient:     { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'Patient'</span>, required: <span class="k">true</span> },
+  doctor:      { type: mongoose.Schema.Types.ObjectId, ref: <span class="s">'Doctor'</span>,  required: <span class="k">true</span> },
+  diagnosis:   { type: <span class="t">String</span>, required: <span class="k">true</span> },   <span class="c">// "Arterial gipertenziya 1-daraja"</span>
+  medicines: [{
+    name:         <span class="t">String</span>,   <span class="c">// "Enalapril"</span>
+    dosage:       <span class="t">String</span>,   <span class="c">// "5mg"</span>
+    instructions: <span class="t">String</span>,   <span class="c">// "kuniga 2 marta ovqatdan keyin"</span>
+    days:         <span class="t">Number</span>,   <span class="c">// 14 kun</span>
+  }],
+  tests:     [<span class="t">String</span>],             <span class="c">// ["Qon tahlili umumiy", "EKG"]</span>
+  totalCost: { type: <span class="t">Number</span>, default: <span class="v">0</span> },
+  status:    { type: <span class="t">String</span>, enum: [<span class="s">"to'lov_kutmoqda"</span>, <span class="s">"to'landi"</span>], default: <span class="s">"to'lov_kutmoqda"</span> },
+  notes:     <span class="t">String</span>,               <span class="c">// shifokor qo'shimcha izohi</span>
+}, { timestamps: <span class="k">true</span> });
+
+module.exports = mongoose.<span class="f">model</span>(<span class="s">'Prescription'</span>, prescriptionSchema);</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ ENV & INDEX ══════════════ -->
+<div id="page-env" class="page">
+<div class="sec">
+  <div class="sec-h">.env va index.js</div>
+  <div class="sec-title">Dastur boshlash nuqtasi</div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 .env</span><span class="tag t-new">yaratish</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Maxfiy kalitlar kod ichida yozilmaydi. <strong>.gitignore</strong> ga <code>.env</code> yozib qo'ying — GitHubga yuklanmasin. Har bir dasturchi o'z .env ni yozadi.</div>
+    <pre>PORT=5000
+MONGO_URI=mongodb://localhost:27017/shifohona
+
+<span class="c"># JWT kalitlari — murakkab qilib yozing</span>
+ACCESS_TOKEN_SECRET=shifohona_access_maxfiy_2025_kalit
+REFRESH_TOKEN_SECRET=shifohona_refresh_maxfiy_2025_kalit</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/config/db.js</span><span class="tag t-ex">mavjud</span></div>
+    <div class="why"><strong>Nima uchun?</strong> MongoDB ulanish logikasi alohida faylda — index.js ni tozalab qoldirish uchun.</div>
+    <pre><span class="k">const</span> mongoose = <span class="f">require</span>(<span class="s">'mongoose'</span>);
+
+<span class="k">const</span> connectDB = <span class="k">async</span> () => {
+  <span class="k">try</span> {
+    <span class="k">await</span> mongoose.<span class="f">connect</span>(process.env.MONGO_URI);
+    console.<span class="f">log</span>(<span class="s">'MongoDB ulandi ✅'</span>);
+  } <span class="k">catch</span> (err) {
+    console.<span class="f">error</span>(<span class="s">'MongoDB xato:'</span>, err.message);
+    process.<span class="f">exit</span>(<span class="v">1</span>);
+  }
+};
+
+module.exports = connectDB;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 index.js</span><span class="tag t-upd">yangilash</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Dasturning kirish nuqtasi. Faqat uchta narsa qiladi: 1) DB ulanadi, 2) middlewarelar qo'shiladi, 3) routelar ulanadi, 4) server ishga tushadi.</div>
+    <pre><span class="f">require</span>(<span class="s">'dotenv'</span>).<span class="f">config</span>();   <span class="c">// eng birinchi — .env o'qiladi</span>
+<span class="k">const</span> express    = <span class="f">require</span>(<span class="s">'express'</span>);
+<span class="k">const</span> connectDB  = <span class="f">require</span>(<span class="s">'./src/config/db'</span>);
+
+<span class="k">const</span> app = <span class="f">express</span>();
+
+<span class="c">// JSON so'rovlarni o'qish</span>
+app.<span class="f">use</span>(express.<span class="f">json</span>());
+
+<span class="c">// DB ga ulanish</span>
+<span class="f">connectDB</span>();
+
+<span class="c">// Barcha routelar /api dan boshlanadi</span>
+app.<span class="f">use</span>(<span class="s">'/api'</span>, <span class="f">require</span>(<span class="s">'./src/routes/index'</span>));
+
+<span class="c">// Server ishga tushish</span>
+<span class="k">const</span> PORT = process.env.PORT || <span class="v">5000</span>;
+app.<span class="f">listen</span>(PORT, () => console.<span class="f">log</span>(<span class="s">`Server: http://localhost:${PORT}`</span>));</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 package.json</span><span class="tag t-upd">yangilash</span></div>
+    <pre>{
+  <span class="v">"name"</span>: <span class="s">"shifohona-backend"</span>,
+  <span class="v">"scripts"</span>: {
+    <span class="v">"start"</span>: <span class="s">"node index.js"</span>,
+    <span class="v">"dev"</span>:   <span class="s">"nodemon index.js"</span>
+  },
+  <span class="v">"dependencies"</span>: {
+    <span class="v">"bcrypt"</span>:        <span class="s">"^5.1.1"</span>,
+    <span class="v">"dotenv"</span>:        <span class="s">"^16.3.1"</span>,
+    <span class="v">"express"</span>:       <span class="s">"^4.18.2"</span>,
+    <span class="v">"jsonwebtoken"</span>:  <span class="s">"^9.0.2"</span>,
+    <span class="v">"mongoose"</span>:      <span class="s">"^8.0.3"</span>
+  },
+  <span class="v">"devDependencies"</span>: { <span class="v">"nodemon"</span>: <span class="s">"^3.0.2"</span> }
+}</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ AUTH ══════════════ -->
+<div id="page-auth" class="page">
+<div class="sec">
+  <div class="sec-h">Auth Controller</div>
+  <div class="sec-title">bcrypt va JWT — faqat shu yerda</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/controllers/auth.controller.js</span><span class="tag t-upd">yangilash</span></div>
+    <div class="why"><strong>Nima uchun bu yerda?</strong> bcrypt.hash(), bcrypt.compare(), jwt.sign(), jwt.verify() — barchasi shu bir faylda. Boshqa hech qayerda yo'q. Tushunish oson, topish oson.</div>
+    <pre><span class="k">const</span> bcrypt = <span class="f">require</span>(<span class="s">'bcrypt'</span>);       <span class="c">// parol hash uchun</span>
+<span class="k">const</span> jwt    = <span class="f">require</span>(<span class="s">'jsonwebtoken'</span>);  <span class="c">// token uchun</span>
+<span class="k">const</span> User   = <span class="f">require</span>(<span class="s">'../models/user.model'</span>);
+
+<span class="c">// ─── REGISTER ─────────────────────────────────────────────────────────────</span>
+<span class="k">const</span> register = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { name, email, password, role } = req.body;
+
+    <span class="c">// 1. Email allaqachon borligini tekshir</span>
+    <span class="k">const</span> exists = <span class="k">await</span> User.<span class="f">findOne</span>({ email });
+    <span class="k">if</span> (exists) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">400</span>).<span class="f">json</span>({ message: <span class="s">'Bu email allaqachon bor'</span> });
+
+    <span class="c">// 2. Parolni bcrypt bilan hash qilish (10 = murakkablik darajasi)</span>
+    <span class="k">const</span> hashedPassword = <span class="k">await</span> bcrypt.<span class="f">hash</span>(password, <span class="v">10</span>);
+
+    <span class="c">// 3. Foydalanuvchini yaratish</span>
+    <span class="k">const</span> user = <span class="k">await</span> User.<span class="f">create</span>({ name, email, password: hashedPassword, role });
+
+    res.<span class="f">status</span>(<span class="v">201</span>).<span class="f">json</span>({
+      success: <span class="k">true</span>,
+      data: { _id: user._id, name: user.name, email: user.email, role: user.role }
+    });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// ─── LOGIN ─────────────────────────────────────────────────────────────────</span>
+<span class="k">const</span> login = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { email, password } = req.body;
+
+    <span class="c">// 1. Userni topish</span>
+    <span class="k">const</span> user = <span class="k">await</span> User.<span class="f">findOne</span>({ email });
+    <span class="k">if</span> (!user) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">'Email yoki parol xato'</span> });
+
+    <span class="c">// 2. Parolni tekshirish — kirgan parolni DB dagi hash bilan solishtiradi</span>
+    <span class="k">const</span> isMatch = <span class="k">await</span> bcrypt.<span class="f">compare</span>(password, user.password);
+    <span class="k">if</span> (!isMatch) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">'Email yoki parol xato'</span> });
+
+    <span class="c">// 3. Access token — 15 daqiqa — har bir so'rovda header da yuboriladi</span>
+    <span class="k">const</span> accessToken = jwt.<span class="f">sign</span>(
+      { id: user._id, role: user.role },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: <span class="s">'15m'</span> }
+    );
+
+    <span class="c">// 4. Refresh token — 7 kun — DB da saqlanadi, yangi access olish uchun</span>
+    <span class="k">const</span> refreshToken = jwt.<span class="f">sign</span>(
+      { id: user._id },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: <span class="s">'7d'</span> }
+    );
+
+    <span class="c">// 5. Refresh tokenni DB ga yozish</span>
+    user.refreshToken = refreshToken;
+    <span class="k">await</span> user.<span class="f">save</span>();
+
+    res.<span class="f">json</span>({
+      success: <span class="k">true</span>,
+      data: { _id: user._id, name: user.name, role: user.role, accessToken, refreshToken }
+    });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// ─── REFRESH — access token eskirganda yangi olish ────────────────────────</span>
+<span class="k">const</span> refresh = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { refreshToken } = req.body;
+    <span class="k">if</span> (!refreshToken) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">"Token yo'q"</span> });
+
+    <span class="c">// Refresh tokenni verify qilish</span>
+    <span class="k">let</span> decoded;
+    <span class="k">try</span> {
+      decoded = jwt.<span class="f">verify</span>(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    } <span class="k">catch</span> {
+      <span class="k">return</span> res.<span class="f">status</span>(<span class="v">403</span>).<span class="f">json</span>({ message: <span class="s">'Token yaroqsiz yoki eskirgan'</span> });
+    }
+
+    <span class="c">// DB dagi token bilan solishtirish (o'g'ri ishlatmasligi uchun)</span>
+    <span class="k">const</span> user = <span class="k">await</span> User.<span class="f">findById</span>(decoded.id);
+    <span class="k">if</span> (!user || user.refreshToken !== refreshToken)
+      <span class="k">return</span> res.<span class="f">status</span>(<span class="v">403</span>).<span class="f">json</span>({ message: <span class="s">'Token mos kelmadi'</span> });
+
+    <span class="c">// Yangi access token</span>
+    <span class="k">const</span> newAccessToken = jwt.<span class="f">sign</span>(
+      { id: user._id, role: user.role },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: <span class="s">'15m'</span> }
+    );
+
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, data: { accessToken: newAccessToken } });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// ─── LOGOUT ────────────────────────────────────────────────────────────────</span>
+<span class="k">const</span> logout = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="c">// req.user — middleware dan keladi</span>
+    <span class="k">await</span> User.<span class="f">findByIdAndUpdate</span>(req.user._id, { refreshToken: <span class="k">null</span> });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, message: <span class="s">'Chiqdingiz'</span> });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+module.exports = { register, login, refresh, logout };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ PATIENT ══════════════ -->
+<div id="page-patient" class="page">
+<div class="sec">
+  <div class="sec-h">Bemor Controller</div>
+  <div class="sec-title">Admin bemorlarni boshqaradi</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/controllers/patient.controller.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Admin bemorni ro'yxatga oladi, qidiradi, ko'radi. <span class="r">?status=kutmoqda</span> — 1-navbat (shifokorga yuborilmaganlar). <span class="r">?status=yozilgan</span> — shifokorga yuborilganlar.</div>
+    <pre><span class="k">const</span> Patient = <span class="f">require</span>(<span class="s">'../models/patient.model'</span>);
+
+<span class="c">// Yangi bemor qo'shish — admin yozadi</span>
+<span class="k">const</span> addPatient = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { fullName, phone, birthDate, gender, illness, specialty } = req.body;
+
+    <span class="k">if</span> (!fullName || !phone || !illness || !specialty)
+      <span class="k">return</span> res.<span class="f">status</span>(<span class="v">400</span>).<span class="f">json</span>({ message: <span class="s">'fullName, phone, illness, specialty majburiy'</span> });
+
+    <span class="k">const</span> patient = <span class="k">await</span> Patient.<span class="f">create</span>({ fullName, phone, birthDate, gender, illness, specialty });
+    res.<span class="f">status</span>(<span class="v">201</span>).<span class="f">json</span>({ success: <span class="k">true</span>, data: patient });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Barcha bemorlar ro'yxati</span>
+<span class="c">// ?status=kutmoqda  →  1-navbat: shifokorga yuborilmaganlar</span>
+<span class="c">// ?status=yozilgan  →  shifokorga yuborilganlar</span>
+<span class="c">// filter yo'q      →  hammasi</span>
+<span class="k">const</span> getAllPatients = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> filter = req.query.status ? { status: req.query.status } : {};
+    <span class="k">const</span> patients = <span class="k">await</span> Patient.<span class="f">find</span>(filter).<span class="f">sort</span>({ createdAt: <span class="v">-1</span> });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, count: patients.length, data: patients });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Bitta bemor</span>
+<span class="k">const</span> getPatient = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> patient = <span class="k">await</span> Patient.<span class="f">findById</span>(req.params.id);
+    <span class="k">if</span> (!patient) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">404</span>).<span class="f">json</span>({ message: <span class="s">'Bemor topilmadi'</span> });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, data: patient });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Ism yoki telefon bo'yicha qidirish — ?q=Alisher yoki ?q=901234567</span>
+<span class="k">const</span> searchPatient = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> q = req.query.q;
+    <span class="k">if</span> (!q) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">400</span>).<span class="f">json</span>({ message: <span class="s">'q parametri kerak'</span> });
+
+    <span class="k">const</span> patients = <span class="k">await</span> Patient.<span class="f">find</span>({
+      $or: [
+        { fullName: { $regex: q, $options: <span class="s">'i'</span> } },
+        { phone:    { $regex: q, $options: <span class="s">'i'</span> } },
+      ]
+    });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, count: patients.length, data: patients });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+module.exports = { addPatient, getAllPatients, getPatient, searchPatient };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ DOCTOR ══════════════ -->
+<div id="page-doctor" class="page">
+<div class="sec">
+  <div class="sec-h">Shifokor Controller</div>
+  <div class="sec-title">Shifokor profili va vaqt jadvali</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/controllers/doctor.controller.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Admin shifokorlarni qo'shadi, jadval beradi. <span class="r">getDoctorsBySpecialty</span> — eng muhimi: kasalikka mos bo'sh shifokorlarni topadi.</div>
+    <pre><span class="k">const</span> Doctor = <span class="f">require</span>(<span class="s">'../models/doctor.model'</span>);
+
+<span class="c">// Yangi shifokor qo'shish</span>
+<span class="k">const</span> addDoctor = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { fullName, specialty, room, phone, userId } = req.body;
+    <span class="k">const</span> doctor = <span class="k">await</span> Doctor.<span class="f">create</span>({ fullName, specialty, room, phone, userId });
+    res.<span class="f">status</span>(<span class="v">201</span>).<span class="f">json</span>({ success: <span class="k">true</span>, data: doctor });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Barcha shifokorlar (jadval ko'rsatilmaydi — tez yuklash)</span>
+<span class="k">const</span> getAllDoctors = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> doctors = <span class="k">await</span> Doctor.<span class="f">find</span>().<span class="f">select</span>(<span class="s">'-schedule'</span>);
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, data: doctors });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// ★ ASOSIY: Ixtisoslik bo'yicha bo'sh shifokorlar</span>
+<span class="c">// Admin bemorning kasalligiga qarab shu endpointdan foydalanadi</span>
+<span class="c">// GET /api/doctors/search?specialty=kardiolog&date=2025-06-20</span>
+<span class="k">const</span> getDoctorsBySpecialty = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { specialty, date } = req.query;
+    <span class="k">if</span> (!specialty) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">400</span>).<span class="f">json</span>({ message: <span class="s">'specialty kerak'</span> });
+
+    <span class="k">const</span> doctors = <span class="k">await</span> Doctor.<span class="f">find</span>({ specialty });
+
+    <span class="c">// Har bir shifokor uchun bo'sh vaqtlarini chiqarish</span>
+    <span class="k">const</span> result = doctors.<span class="f">map</span>(doc => {
+      <span class="k">const</span> freeSlots = doc.schedule.<span class="f">filter</span>(
+        s => !s.isBusy && (!date || s.date === date)  <span class="c">// sana berilmasa hammasi</span>
+      );
+      <span class="k">return</span> {
+        _id:       doc._id,
+        fullName:  doc.fullName,
+        specialty: doc.specialty,
+        room:      doc.room,
+        phone:     doc.phone,
+        freeSlots,              <span class="c">// bo'sh vaqtlar ro'yxati</span>
+        jami:      freeSlots.length
+      };
+    });
+
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, data: result });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Shifokorga vaqt jadvali qo'shish</span>
+<span class="c">// Body: { date: "2025-06-20", times: ["09:00","10:00","11:00","14:00"] }</span>
+<span class="k">const</span> addSchedule = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { date, times } = req.body;
+    <span class="k">const</span> doctor = <span class="k">await</span> Doctor.<span class="f">findById</span>(req.params.id);
+    <span class="k">if</span> (!doctor) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">404</span>).<span class="f">json</span>({ message: <span class="s">'Shifokor topilmadi'</span> });
+
+    <span class="c">// Takroriy vaqtlarni qo'shmaslik uchun filtrlash</span>
+    <span class="k">const</span> existing = doctor.schedule.<span class="f">filter</span>(s => s.date === date).<span class="f">map</span>(s => s.time);
+    <span class="k">const</span> newSlots = times
+      .<span class="f">filter</span>(t => !existing.<span class="f">includes</span>(t))
+      .<span class="f">map</span>(t => ({ date, time: t, isBusy: <span class="k">false</span> }));
+
+    doctor.schedule.<span class="f">push</span>(...newSlots);
+    <span class="k">await</span> doctor.<span class="f">save</span>();
+
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, message: <span class="s">`${newSlots.length} ta vaqt qo'shildi`</span> });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+module.exports = { addDoctor, getAllDoctors, getDoctorsBySpecialty, addSchedule };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ APPOINTMENT ══════════════ -->
+<div id="page-appoint" class="page">
+<div class="sec">
+  <div class="sec-h">Qabul Controller</div>
+  <div class="sec-title">Bemorni shifokorga yozish</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/controllers/appointment.controller.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> <code>createAppointment</code> — eng muhim funksiya. Uchta ish birdan: qabul yaratadi + shifokor vaqtini band qiladi + bemor statusini yangilaydi. <code>getAppointments</code> — shifokor faqat o'zining navbatini ko'radi.</div>
+    <pre><span class="k">const</span> Appointment = <span class="f">require</span>(<span class="s">'../models/appointment.model'</span>);
+<span class="k">const</span> Doctor      = <span class="f">require</span>(<span class="s">'../models/doctor.model'</span>);
+<span class="k">const</span> Patient     = <span class="f">require</span>(<span class="s">'../models/patient.model'</span>);
+
+<span class="c">// ★ ASOSIY: Bemorni shifokorga yozish</span>
+<span class="c">// Body: { patientId, doctorId, date: "2025-06-20", time: "09:00" }</span>
+<span class="k">const</span> createAppointment = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { patientId, doctorId, date, time } = req.body;
+
+    <span class="c">// 1. Shifokorni topish</span>
+    <span class="k">const</span> doctor = <span class="k">await</span> Doctor.<span class="f">findById</span>(doctorId);
+    <span class="k">if</span> (!doctor) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">404</span>).<span class="f">json</span>({ message: <span class="s">'Shifokor topilmadi'</span> });
+
+    <span class="c">// 2. Tanlangan vaqt bo'sh ekanligini tekshirish</span>
+    <span class="k">const</span> slot = doctor.schedule.<span class="f">find</span>(s => s.date === date && s.time === time && !s.isBusy);
+    <span class="k">if</span> (!slot) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">400</span>).<span class="f">json</span>({ message: <span class="s">'Bu vaqt band yoki mavjud emas'</span> });
+
+    <span class="c">// 3. Qabul yaratish</span>
+    <span class="k">const</span> appointment = <span class="k">await</span> Appointment.<span class="f">create</span>({ patient: patientId, doctor: doctorId, date, time });
+
+    <span class="c">// 4. Shifokor vaqtini BAND qilish — boshqa bemor olmasin</span>
+    slot.isBusy = <span class="k">true</span>;
+    <span class="k">await</span> doctor.<span class="f">save</span>();
+
+    <span class="c">// 5. Bemor statusini yangilash — 1-navbatdan chiqadi</span>
+    <span class="k">await</span> Patient.<span class="f">findByIdAndUpdate</span>(patientId, { status: <span class="s">'yozilgan'</span> });
+
+    <span class="c">// Javobda to'liq ma'lumot</span>
+    <span class="k">const</span> result = <span class="k">await</span> Appointment.<span class="f">findById</span>(appointment._id)
+      .<span class="f">populate</span>(<span class="s">'patient'</span>, <span class="s">'fullName phone illness'</span>)
+      .<span class="f">populate</span>(<span class="s">'doctor'</span>,  <span class="s">'fullName specialty room'</span>);
+
+    res.<span class="f">status</span>(<span class="v">201</span>).<span class="f">json</span>({ success: <span class="k">true</span>, data: result });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Qabullar ro'yxati</span>
+<span class="c">// Shifokor: faqat o'zinikini ko'radi</span>
+<span class="c">// Admin / Reception: hammasini ko'radi</span>
+<span class="k">const</span> getAppointments = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> filter = {};
+
+    <span class="c">// Shifokor bo'lsa — faqat o'zining qabullarini ko'radi</span>
+    <span class="k">if</span> (req.user.role === <span class="s">'doctor'</span>) {
+      <span class="k">const</span> doc = <span class="k">await</span> Doctor.<span class="f">findOne</span>({ userId: req.user._id });
+      <span class="k">if</span> (doc) filter.doctor = doc._id;
+    }
+
+    <span class="c">// ?status=kutmoqda — faqat kutayotganlar</span>
+    <span class="k">if</span> (req.query.status) filter.status = req.query.status;
+
+    <span class="k">const</span> list = <span class="k">await</span> Appointment.<span class="f">find</span>(filter)
+      .<span class="f">populate</span>(<span class="s">'patient'</span>, <span class="s">'fullName phone illness birthDate gender'</span>)
+      .<span class="f">populate</span>(<span class="s">'doctor'</span>,  <span class="s">'fullName specialty room'</span>)
+      .<span class="f">sort</span>({ createdAt: <span class="v">-1</span> });
+
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, count: list.length, data: list });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+module.exports = { createAppointment, getAppointments };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ PRESCRIPTION ══════════════ -->
+<div id="page-presc" class="page">
+<div class="sec">
+  <div class="sec-h">Retsept Controller</div>
+  <div class="sec-title">Shifokor → Admin → To'lov</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/controllers/prescription.controller.js</span><span class="tag t-new">yangi</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Shifokor ko'rikni tugatgach retsept yozadi — bu admin 2-navbatida ko'rinadi. Bemor to'lagach admin <code>markAsPaid</code> chaqiradi va status <code>to'landi</code> bo'ladi.</div>
+    <pre><span class="k">const</span> Prescription = <span class="f">require</span>(<span class="s">'../models/prescription.model'</span>);
+<span class="k">const</span> Appointment  = <span class="f">require</span>(<span class="s">'../models/appointment.model'</span>);
+
+<span class="c">// Shifokor retsept yozadi va adminstratsiyaga yuboradi</span>
+<span class="c">// Body: { appointmentId, diagnosis, medicines:[...], tests:[...], totalCost, notes }</span>
+<span class="k">const</span> createPrescription = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> { appointmentId, diagnosis, medicines, tests, totalCost, notes } = req.body;
+
+    <span class="c">// Qabulni topish</span>
+    <span class="k">const</span> appointment = <span class="k">await</span> Appointment.<span class="f">findById</span>(appointmentId);
+    <span class="k">if</span> (!appointment) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">404</span>).<span class="f">json</span>({ message: <span class="s">'Qabul topilmadi'</span> });
+
+    <span class="c">// Retsept yaratish</span>
+    <span class="k">const</span> prescription = <span class="k">await</span> Prescription.<span class="f">create</span>({
+      appointment: appointmentId,
+      patient:     appointment.patient,
+      doctor:      appointment.doctor,
+      diagnosis,
+      medicines,   <span class="c">// [{name:"Enalapril", dosage:"5mg", instructions:"kuniga 2 marta", days:14}]</span>
+      tests,       <span class="c">// ["Qon tahlili umumiy", "Siydik tahlili", "EKG"]</span>
+      totalCost,   <span class="c">// 150000 (so'mda)</span>
+      notes,
+    });
+
+    <span class="c">// Qabul statusini "bajarildi" ga o'tkazish</span>
+    appointment.status = <span class="s">'bajarildi'</span>;
+    <span class="k">await</span> appointment.<span class="f">save</span>();
+
+    res.<span class="f">status</span>(<span class="v">201</span>).<span class="f">json</span>({
+      success: <span class="k">true</span>,
+      message: <span class="s">'Retsept adminstratsiyaga yuborildi'</span>,
+      data: prescription
+    });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Admin: to'lov kutayotgan retseptlar — 2-NAVBAT</span>
+<span class="k">const</span> getPendingPayments = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> list = <span class="k">await</span> Prescription.<span class="f">find</span>({ status: <span class="s">"to'lov_kutmoqda"</span> })
+      .<span class="f">populate</span>(<span class="s">'patient'</span>, <span class="s">'fullName phone'</span>)
+      .<span class="f">populate</span>(<span class="s">'doctor'</span>,  <span class="s">'fullName specialty room'</span>)
+      .<span class="f">sort</span>({ createdAt: <span class="v">-1</span> });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, count: list.length, data: list });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Admin: bemor to'ladi — retsept beriladi</span>
+<span class="k">const</span> markAsPaid = <span class="k">async</span> (req, res) => {
+  <span class="k">try</span> {
+    <span class="k">const</span> prescription = <span class="k">await</span> Prescription.<span class="f">findByIdAndUpdate</span>(
+      req.params.id,
+      { status: <span class="s">"to'landi"</span> },
+      { new: <span class="k">true</span> }
+    ).<span class="f">populate</span>(<span class="s">'patient'</span>, <span class="s">'fullName phone'</span>);
+
+    <span class="k">if</span> (!prescription) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">404</span>).<span class="f">json</span>({ message: <span class="s">'Topilmadi'</span> });
+    res.<span class="f">json</span>({ success: <span class="k">true</span>, message: <span class="s">"To'lov qabul qilindi, retsept berildi"</span>, data: prescription });
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+module.exports = { createPrescription, getPendingPayments, markAsPaid };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ MIDDLEWARE ══════════════ -->
+<div id="page-middleware" class="page">
+<div class="sec">
+  <div class="sec-h">Middleware</div>
+  <div class="sec-title">Darvoza — har bir so'rov shu yerdan o'tadi</div>
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/middlewares/auth.middleware.js</span><span class="tag t-upd">yangilash</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Himoyalangan route ga so'rov kelganda — avval <code>protect</code> ishlaydi. Token bor-yo'qligini, to'g'ri ekanini, eskirganini tekshiradi. <code>authorize</code> esa ruxsat berilgan rolni tekshiradi.</div>
+    <pre><span class="k">const</span> jwt  = <span class="f">require</span>(<span class="s">'jsonwebtoken'</span>);
+<span class="k">const</span> User = <span class="f">require</span>(<span class="s">'../models/user.model'</span>);
+
+<span class="c">// Token tekshiradi — req.user ga yozadi</span>
+<span class="c">// Barcha himoyalangan routelarda ishlatiladi</span>
+<span class="k">const</span> protect = <span class="k">async</span> (req, res, next) => {
+  <span class="k">try</span> {
+    <span class="c">// Header: "Authorization: Bearer eyJhbG..."</span>
+    <span class="k">const</span> header = req.headers.authorization;
+    <span class="k">if</span> (!header || !header.<span class="f">startsWith</span>(<span class="s">'Bearer '</span>))
+      <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">"Token yo'q. Avval kiring."</span> });
+
+    <span class="k">const</span> token = header.<span class="f">split</span>(<span class="s">' '</span>)[<span class="v">1</span>];
+
+    <span class="c">// Tokenni tekshirish</span>
+    <span class="k">let</span> decoded;
+    <span class="k">try</span> {
+      decoded = jwt.<span class="f">verify</span>(token, process.env.ACCESS_TOKEN_SECRET);
+    } <span class="k">catch</span> (err) {
+      <span class="c">// Token eskirsa — frontend /auth/refresh ga boradi</span>
+      <span class="k">if</span> (err.name === <span class="s">'TokenExpiredError'</span>)
+        <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">'Token eskirdi'</span>, code: <span class="s">'TOKEN_EXPIRED'</span> });
+      <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">'Token yaroqsiz'</span> });
+    }
+
+    <span class="c">// Foydalanuvchini DB dan olish (parol va refreshToken ko'rsatilmaydi)</span>
+    <span class="k">const</span> user = <span class="k">await</span> User.<span class="f">findById</span>(decoded.id).<span class="f">select</span>(<span class="s">'-password -refreshToken'</span>);
+    <span class="k">if</span> (!user) <span class="k">return</span> res.<span class="f">status</span>(<span class="v">401</span>).<span class="f">json</span>({ message: <span class="s">'Foydalanuvchi topilmadi'</span> });
+
+    req.user = user;   <span class="c">// controller da req.user._id, req.user.role ishlatiladi</span>
+    <span class="f">next</span>();           <span class="c">// davom etsin</span>
+  } <span class="k">catch</span> (err) { res.<span class="f">status</span>(<span class="v">500</span>).<span class="f">json</span>({ message: err.message }); }
+};
+
+<span class="c">// Rolni tekshiradi</span>
+<span class="c">// Ishlatish: authorize('admin')  →  faqat admin</span>
+<span class="c">// Ishlatish: authorize('admin', 'reception')  →  admin yoki reception</span>
+<span class="k">const</span> authorize = (...roles) => (req, res, next) => {
+  <span class="k">if</span> (!roles.<span class="f">includes</span>(req.user.role))
+    <span class="k">return</span> res.<span class="f">status</span>(<span class="v">403</span>).<span class="f">json</span>({ message: <span class="s">`Ruxsat yo'q. Kerakli: ${roles.join(<span class="s">', '</span>)}`</span> });
+  <span class="f">next</span>();
+};
+
+module.exports = { protect, authorize };</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ ROUTES ══════════════ -->
+<div id="page-routes" class="page">
+<div class="sec">
+  <div class="sec-h">Routes</div>
+  <div class="sec-title">Qaysi URL qaysi controllarga boradi</div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/index.js</span><span class="tag t-upd">yangilash</span></div>
+    <div class="why"><strong>Nima uchun?</strong> Barcha routelarni birlashtiradi. index.js da faqat shu bitta fayl import qilinadi.</div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+
+router.<span class="f">use</span>(<span class="s">'/auth'</span>,          <span class="f">require</span>(<span class="s">'./auth.routes'</span>));
+router.<span class="f">use</span>(<span class="s">'/patients'</span>,      <span class="f">require</span>(<span class="s">'./patient.routes'</span>));
+router.<span class="f">use</span>(<span class="s">'/doctors'</span>,       <span class="f">require</span>(<span class="s">'./doctor.routes'</span>));
+router.<span class="f">use</span>(<span class="s">'/appointments'</span>,  <span class="f">require</span>(<span class="s">'./appointment.routes'</span>));
+router.<span class="f">use</span>(<span class="s">'/prescriptions'</span>, <span class="f">require</span>(<span class="s">'./prescription.routes'</span>));
+
+module.exports = router;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/auth.routes.js</span></div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+<span class="k">const</span> { register, login, refresh, logout } = <span class="f">require</span>(<span class="s">'../controllers/auth.controller'</span>);
+<span class="k">const</span> { protect } = <span class="f">require</span>(<span class="s">'../middlewares/auth.middleware'</span>);
+
+router.<span class="f">post</span>(<span class="s">'/register'</span>, register);   <span class="c">// token shart emas</span>
+router.<span class="f">post</span>(<span class="s">'/login'</span>,    login);      <span class="c">// token shart emas</span>
+router.<span class="f">post</span>(<span class="s">'/refresh'</span>,  refresh);    <span class="c">// yangi accessToken olish</span>
+router.<span class="f">post</span>(<span class="s">'/logout'</span>,   protect, logout);  <span class="c">// login bo'lgan bo'lsa</span>
+
+module.exports = router;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/patient.routes.js</span></div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+<span class="k">const</span> { protect, authorize } = <span class="f">require</span>(<span class="s">'../middlewares/auth.middleware'</span>);
+<span class="k">const</span> { addPatient, getAllPatients, getPatient, searchPatient } = <span class="f">require</span>(<span class="s">'../controllers/patient.controller'</span>);
+
+router.<span class="f">use</span>(protect, authorize(<span class="s">'admin'</span>, <span class="s">'reception'</span>));  <span class="c">// hammasi himoyalangan</span>
+
+router.<span class="f">post</span>(<span class="s">'/'</span>,       addPatient);      <span class="c">// yangi bemor</span>
+router.<span class="f">get</span>(<span class="s">'/'</span>,        getAllPatients);   <span class="c">// ?status=kutmoqda</span>
+router.<span class="f">get</span>(<span class="s">'/search'</span>,  searchPatient);   <span class="c">// ?q=Alisher</span>
+router.<span class="f">get</span>(<span class="s">'/:id'</span>,     getPatient);
+
+module.exports = router;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/doctor.routes.js</span></div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+<span class="k">const</span> { protect, authorize } = <span class="f">require</span>(<span class="s">'../middlewares/auth.middleware'</span>);
+<span class="k">const</span> { addDoctor, getAllDoctors, getDoctorsBySpecialty, addSchedule } = <span class="f">require</span>(<span class="s">'../controllers/doctor.controller'</span>);
+
+router.<span class="f">use</span>(protect);
+
+router.<span class="f">get</span>(<span class="s">'/search'</span>,       authorize(<span class="s">'admin'</span>, <span class="s">'reception'</span>), getDoctorsBySpecialty);
+router.<span class="f">post</span>(<span class="s">'/'</span>,            authorize(<span class="s">'admin'</span>), addDoctor);
+router.<span class="f">get</span>(<span class="s">'/'</span>,             getAllDoctors);
+router.<span class="f">post</span>(<span class="s">'/:id/schedule'</span>, authorize(<span class="s">'admin'</span>), addSchedule);
+
+module.exports = router;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/appointment.routes.js</span></div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+<span class="k">const</span> { protect, authorize } = <span class="f">require</span>(<span class="s">'../middlewares/auth.middleware'</span>);
+<span class="k">const</span> { createAppointment, getAppointments } = <span class="f">require</span>(<span class="s">'../controllers/appointment.controller'</span>);
+
+router.<span class="f">use</span>(protect);
+
+router.<span class="f">post</span>(<span class="s">'/'</span>, authorize(<span class="s">'admin'</span>, <span class="s">'reception'</span>), createAppointment);
+router.<span class="f">get</span>(<span class="s">'/'</span>,  getAppointments);   <span class="c">// shifokor o'zinikini, admin hammasini ko'radi</span>
+
+module.exports = router;</pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-header"><span class="file-path">📄 src/routes/prescription.routes.js</span></div>
+    <pre><span class="k">const</span> router = <span class="f">require</span>(<span class="s">'express'</span>).<span class="f">Router</span>();
+<span class="k">const</span> { protect, authorize } = <span class="f">require</span>(<span class="s">'../middlewares/auth.middleware'</span>);
+<span class="k">const</span> { createPrescription, getPendingPayments, markAsPaid } = <span class="f">require</span>(<span class="s">'../controllers/prescription.controller'</span>);
+
+router.<span class="f">use</span>(protect);
+
+router.<span class="f">post</span>(<span class="s">'/'</span>,           authorize(<span class="s">'doctor'</span>), createPrescription);       <span class="c">// shifokor yozadi</span>
+router.<span class="f">get</span>(<span class="s">'/pending'</span>,    authorize(<span class="s">'admin'</span>, <span class="s">'reception'</span>), getPendingPayments);  <span class="c">// 2-navbat</span>
+router.<span class="f">patch</span>(<span class="s">'/:id/pay'</span>, authorize(<span class="s">'admin'</span>, <span class="s">'reception'</span>), markAsPaid);          <span class="c">// to'lov</span>
+
+module.exports = router;</pre>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ API ══════════════ -->
+<div id="page-api" class="page">
+<div class="sec">
+  <div class="sec-h">API jadval</div>
+  <div class="sec-title">Postman da test qilish tartibi</div>
+  <div class="sec-desc">Quyidagi tartibda bajarish kerak — yuqoridagilar quyi qadamlar uchun kerak bo'ladi</div>
+
+  <div class="file-card">
+    <div style="overflow-x:auto;">
+    <table class="api-table">
+      <thead><tr><th>#</th><th>Method</th><th>URL</th><th>Kim</th><th>Nima qiladi</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--muted);font-size:11px;">01</td><td><span class="meth mp">POST</span></td><td><code>/api/auth/register</code></td><td style="font-size:12px;color:var(--muted);">Hamma</td><td style="font-size:13px;">Admin / shifokor akkaunt yaratish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">02</td><td><span class="meth mp">POST</span></td><td><code>/api/auth/login</code></td><td style="font-size:12px;color:var(--muted);">Hamma</td><td style="font-size:13px;">Token olish (access + refresh)</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">03</td><td><span class="meth mp">POST</span></td><td><code>/api/auth/refresh</code></td><td style="font-size:12px;color:var(--muted);">Hamma</td><td style="font-size:13px;">Yangi accessToken olish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">04</td><td><span class="meth mp">POST</span></td><td><code>/api/doctors</code></td><td style="font-size:12px;color:var(--muted);">Admin</td><td style="font-size:13px;">Yangi shifokor qo'shish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">05</td><td><span class="meth mp">POST</span></td><td><code>/api/doctors/:id/schedule</code></td><td style="font-size:12px;color:var(--muted);">Admin</td><td style="font-size:13px;">Shifokorga vaqt jadvali berish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">06</td><td><span class="meth mp">POST</span></td><td><code>/api/patients</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">Yangi bemor ro'yxatga olish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">07</td><td><span class="meth mg">GET</span></td><td><code>/api/patients?status=kutmoqda</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">1-navbat: shifokorga yuborilmaganlar</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">08</td><td><span class="meth mg">GET</span></td><td><code>/api/patients/search?q=Alisher</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">Ism yoki telefon bo'yicha qidirish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">09</td><td><span class="meth mg">GET</span></td><td><code>/api/doctors/search?specialty=kardiolog&date=2025-06-20</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">Bo'sh shifokorlar + vaqtlar</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">10</td><td><span class="meth mp">POST</span></td><td><code>/api/appointments</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">★ Bemorni shifokorga yozish + vaqt band</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">11</td><td><span class="meth mg">GET</span></td><td><code>/api/appointments</code></td><td style="font-size:12px;color:var(--muted);">Doctor</td><td style="font-size:13px;">Shifokor o'z navbatini ko'radi</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">12</td><td><span class="meth mp">POST</span></td><td><code>/api/prescriptions</code></td><td style="font-size:12px;color:var(--muted);">Doctor</td><td style="font-size:13px;">★ Retsept yozish → adminga yuborish</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">13</td><td><span class="meth mg">GET</span></td><td><code>/api/prescriptions/pending</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">2-navbat: to'lov kutayotganlar</td></tr>
+        <tr><td style="color:var(--muted);font-size:11px;">14</td><td><span class="meth mpat">PATCH</span></td><td><code>/api/prescriptions/:id/pay</code></td><td style="font-size:12px;color:var(--muted);">Admin/Reception</td><td style="font-size:13px;">★ Bemor to'ladi → yakunlandi</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="intro-block" style="margin-top:24px;">
+    <h3>📌 Muhim eslatmalar</h3>
+    <p><strong>Header:</strong> <code>Authorization: Bearer eyJhbGci...</code> — barcha himoyalangan so'rovlarda</p>
+    <p style="margin-top:10px;"><strong>10-qadam body:</strong></p>
+    <pre style="background:var(--code);border-radius:8px;padding:16px;margin-top:8px;">{
+  <span class="v">"patientId"</span>: <span class="s">"665abc123..."</span>,
+  <span class="v">"doctorId"</span>:  <span class="s">"665def456..."</span>,
+  <span class="v">"date"</span>:      <span class="s">"2025-06-20"</span>,
+  <span class="v">"time"</span>:      <span class="s">"09:00"</span>
+}</pre>
+    <p style="margin-top:12px;"><strong>12-qadam body:</strong></p>
+    <pre style="background:var(--code);border-radius:8px;padding:16px;margin-top:8px;">{
+  <span class="v">"appointmentId"</span>: <span class="s">"665abc..."</span>,
+  <span class="v">"diagnosis"</span>:     <span class="s">"Arterial gipertenziya 1-daraja"</span>,
+  <span class="v">"medicines"</span>: [
+    { <span class="v">"name"</span>: <span class="s">"Enalapril"</span>, <span class="v">"dosage"</span>: <span class="s">"5mg"</span>, <span class="v">"instructions"</span>: <span class="s">"kuniga 2 marta"</span>, <span class="v">"days"</span>: <span class="v">14</span> }
+  ],
+  <span class="v">"tests"</span>:     [<span class="s">"Qon tahlili"</span>, <span class="s">"EKG"</span>],
+  <span class="v">"totalCost"</span>: <span class="v">150000</span>,
+  <span class="v">"notes"</span>:     <span class="s">"Tuzni kamaytiring, dam oling"</span>
+}</pre>
+  </div>
+</div>
+</div>
+
+<script>
+function go(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('page-' + name).classList.add('on');
+  btn.classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
