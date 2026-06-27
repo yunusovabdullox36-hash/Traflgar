@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏥 Shifohona API — Sardor uchun qo'llanma</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --card: #1c2128;
+  --border: #30363d;
+  --blue: #58a6ff;
+  --green: #3fb950;
+  --amber: #d29922;
+  --purple: #bc8cff;
+  --text: #e6edf3;
+  --muted: #7d8590;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; line-height: 1.7; font-size: 15px; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,17,23,.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex; gap: 2px; overflow-x: auto;
+}
+.nav-btn {
+  padding: 14px 14px; color: var(--muted); font-size: 13px;
+  cursor: pointer; border: none; background: none;
+  white-space: nowrap; border-bottom: 2px solid transparent;
+  transition: .2s; font-family: inherit;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.on { color: var(--blue); border-bottom-color: var(--blue); }
+
+.hero {
+  padding: 56px 32px 48px; text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(88,166,255,.08), transparent);
+}
+.hero h1 { font-size: 40px; font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+.hero h1 span { background: linear-gradient(135deg,#fff 40%,#58a6ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { color: var(--muted); font-size: 16px; max-width: 600px; margin: 0 auto; }
+.hero .url { display: inline-block; margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; font-family: monospace; font-size: 14px; color: var(--blue); }
+.hero .url a { color: #58a6ff; }
+
+.sec { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+.sec-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.sec-desc { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+.card-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; background: rgba(255,255,255,.02);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700; font-size: 15px;
+}
+.card-body { padding: 16px 20px; }
+.card-desc { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+
+.meth { font-family: monospace; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 4px; display: inline-block; }
+.m-post { background: rgba(63,185,80,.15); color: #3fb950; }
+.m-get { background: rgba(88,166,255,.15); color: #58a6ff; }
+.m-patch { background: rgba(188,140,255,.15); color: #bc8cff; }
+
+.endpoint {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid rgba(48,54,61,.4);
+}
+.endpoint:last-child { border: none; }
+.endpoint .meth { flex-shrink: 0; }
+.endpoint .url { font-family: monospace; font-size: 13px; color: var(--text); flex: 1; }
+.endpoint .who { font-size: 11px; color: var(--muted); }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: #1e2432; padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border: none; }
+
+.badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+.b-admin { background: rgba(88,166,255,.12); color: #58a6ff; }
+.b-doc { background: rgba(63,185,80,.12); color: #3fb950; }
+.b-all { background: rgba(125,133,144,.1); color: var(--muted); }
+
+pre {
+  background: #1e2432; padding: 16px 20px; border-radius: 8px;
+  overflow-x: auto; font-size: 12.5px;
+  font-family: 'Cascadia Code','Fira Code','Consolas',monospace;
+  line-height: 1.8; margin-top: 8px;
+}
+code { font-family: monospace; background: rgba(110,118,129,.2); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+.flow { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+.flow-step {
+  flex: 1; min-width: 140px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 16px; text-align: center;
+}
+.flow-step .num { font-size: 20px; margin-bottom: 6px; }
+.flow-step .who { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+.flow-step .name { font-size: 14px; font-weight: 700; margin: 6px 0; }
+.flow-step ul { list-style: none; text-align: left; font-size: 12px; color: var(--muted); }
+.flow-step ul li { padding: 2px 0 2px 12px; position: relative; }
+.flow-step ul li::before { content: '\00b7'; position: absolute; left: 0; color: var(--blue); }
+
+.model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.model-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.model-card .mh { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 700; }
+.model-card .mf { padding: 10px 16px; }
+.model-card .field { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(48,54,61,.3); font-size: 12px; }
+.model-card .field:last-child { border: none; }
+.model-card .field .fn { font-family: monospace; color: var(--text); }
+.model-card .field .type { font-size: 10px; padding: 2px 6px; border-radius: 3px; }
+.t-str { background: rgba(63,185,80,.12); color: #56d364; }
+.t-ref { background: rgba(88,166,255,.12); color: #79c0ff; }
+.t-arr { background: rgba(210,153,34,.12); color: #e3b341; }
+.t-num { background: rgba(248,81,73,.12); color: #ff7b72; }
+
+.callout {
+  padding: 14px 18px; border-radius: 8px; margin: 12px 0;
+  border-left: 3px solid var(--blue);
+  background: rgba(88,166,255,.06);
+  font-size: 13px; color: #9ca3af;
+}
+.callout strong { color: var(--text); }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+.role-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.role-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
+.role-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.role-card ul { list-style: none; font-size: 13px; color: var(--muted); }
+.role-card ul li { padding: 3px 0 3px 16px; position: relative; }
+.role-card ul li::before { content: '\2192'; position: absolute; left: 0; color: var(--blue); }
+
+.page { display: none; }
+.page.on { display: block; }
+
+@media (max-width: 640px) {
+  .role-list, .flow { grid-template-columns: 1fr; flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-btn on" onclick="go('intro',this)">🏥 Loyiha</button>
+  <button class="nav-btn" onclick="go('auth',this)">🔐 Auth</button>
+  <button class="nav-btn" onclick="go('patients',this)">🚶 Bemorlar</button>
+  <button class="nav-btn" onclick="go('doctors',this)">👨‍⚕️ Shifokorlar</button>
+  <button class="nav-btn" onclick="go('appointments',this)">📅 Qabullar</button>
+  <button class="nav-btn" onclick="go('prescriptions',this)">💊 Retseptlar</button>
+  <button class="nav-btn" onclick="go('models',this)">🗄️ Modellar</button>
+</nav>
+
+<div class="hero">
+  <h1><span>🏥 Shifohona</span> API Qo'llanma</h1>
+  <p>Frontendchi Sardor uchun — backend API ni to'liq tushunish va ishlatish uchun qo'llanma</p>
+  <div class="url">🔗 Swagger UI: <a href="http://localhost:5000/api-docs" target="_blank">http://localhost:5000/api-docs</a></div>
+</div>
+
+<div id="page-intro" class="page on">
+<div class="sec">
+  <div class="sec-title">🏥 Trafalgar — Shifohona Boshqaruv Tizimi</div>
+  <div class="sec-desc">Backend API haqida to'liq ma'lumot</div>
+
+  <div class="card">

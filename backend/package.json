@@ -7,7 +7,11 @@
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
-  "keywords": ["shifohona", "hospital", "clinic"],
+  "keywords": [
+    "shifohona",
+    "hospital",
+    "clinic"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -17,6 +21,8 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.7.2"
+    "mongoose": "^9.7.2",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
   }
 }
