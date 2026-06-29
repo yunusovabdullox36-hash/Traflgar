@@ -1,0 +1,28 @@
+# Render Blueprint - Shifohona Backend
+# docs: https://render.com/docs/blueprint-spec
+
+services:
+  # ============ Backend API ============
+  - type: web
+    name: traflgar-backend
+    runtime: node
+    region: frankfurt
+    plan: starter
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/health
+    autoDeploy: yes
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: MONGO_URI
+        sync: false  # Render dashboard dan set qilinadi
+      - key: ACCESS_TOKEN_SECRET
+        sync: false  # Render dashboard dan set qilinadi
+      - key: REFRESH_TOKEN_SECRET
+        sync: false  # Render dashboard dan set qilinadi
+      - key: CORS_ORIGIN
+        value: "*"
